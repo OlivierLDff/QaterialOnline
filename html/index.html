@@ -2,12 +2,13 @@
 <html lang="en-us">
 
 <head>
+    <link rel="icon" type="image/png" href="icon.png" />
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
-    <title>qmlonline</title>
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <title>QaterialOnline</title>
 </head>
 
 <body onload>
@@ -15,7 +16,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/metro/4.3.7/js/metro.min.js"></script>
 
     <div class="header-row">
-        <span class="header-brand-1">QML</span>
+        <span class="header-brand-1">QATERIAL</span>
         <span class="header-brand-2">Online</span>
 
         <div class="dropdown">
@@ -28,15 +29,15 @@
         </div>
 
         <div class="build-info" style="cursor:pointer">
-            <a id="build-info" target="_blank" href="https://invent.kde.org/webapps/qmlonline" style="color:white"></a>
+            <a id="build-info" target="_blank" href="https://github.com/OlivierLDff/QaterialOnline" style="color:white"></a>
         </div>
 
         <div class="qt-info" style="cursor:pointer">
             <a id="qt-info" target="_blank" style="color:white"></a>
         </div>
 
-        <div class="github-button" onclick="window.open('https://invent.kde.org/webapps/qmlonline');">
-            <span class="iconify" data-icon="octicon-repo" data-inline="false"></span>
+        <div class="github-button" onclick="window.open('https://github.com/OlivierLDff/Qaterial');">
+            <span class="iconify" data-icon="logos:github-octocat" data-inline="false"></span>
         </div>
     </div>
     <div id="main-div" data-role="splitter" class="h-100" data-on-resize-split="resizeSplitY">
@@ -57,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <div id="qmlonline"></div>
+        <div id="qaterialonline"></div>
     </div>
 
     <script src="examples.js" type="text/javascript" charset="utf-8"></script>
@@ -104,7 +105,7 @@
         function loadFile(filePath) {
             //TODO: use https://xhr.spec.whatwg.org/
             let request = new XMLHttpRequest();
-            request.open("GET", "qml/examples/" + filePath, false);
+            request.open("GET", filePath, false);
             request.send();
             return request.status === 200 ? request.responseText : "";
         }
@@ -112,7 +113,7 @@
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/ace.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/ext-language_tools.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/theme-dracula.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/theme-tomorrow_night.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/mode-qml.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.js"></script>
 
@@ -122,7 +123,7 @@
     <!--qml-->
 
     <script type='text/javascript'>
-        const qml = new QmlOnline("qmlonline")
+        const qml = new QaterialOnline("qaterialonline")
         qml.registerCall({
             posInit: function() {
                 init()
@@ -172,9 +173,10 @@
 
         function populateBuildInfo(version) {
             let buildInfo = document.getElementById("build-info")
-            buildInfo.href = `${version.url.replace('.git', '')}/-/tree/${version.hash}`
-            buildInfo.innerHTML = `Build: ${version.date} - ${version.hash}`
+            buildInfo.href = `https://github.com/OlivierLDff/QaterialOnline/actions/runs/${version.runId}`
+            buildInfo.innerHTML = `${version.date} - ${version.hash}:${version.runNumber}`
 
+            console.log(`Running Qaterial ${version.date} - ${version.hash}:${version.runNumber}`)
             console.log(`Running Qt ${version.qtVersion}`)
             let qtInfo = document.getElementById("qt-info")
             let qtMajorMinor = version.qtVersion.split('.').slice(0, 2).join('.')
@@ -182,7 +184,7 @@
             qtInfo.innerHTML = `Qt ${version.qtVersion}`
         }
 
-        editor.setTheme("ace/theme/dracula");
+        editor.setTheme("ace/theme/tomorrow_night");
         editor.session.setMode("ace/mode/qml");
         editor.setOptions({
             showInvisibles: true,
@@ -231,7 +233,7 @@
                     qml.setCode(lastSessionCode)
                     eraseTerminal()
                 } else { // No last session, load the magic of the infinity happiness
-                    openExample('rotationanimator.qml')
+                    openExample('examples/Inputs/ColorControlSlider.qml')
                 }
                 // Force resize: Fix bug with firefox 77.0.1
                 editor.resize();

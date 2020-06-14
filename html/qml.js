@@ -1,4 +1,4 @@
-class QmlOnline {
+class QaterialOnline {
     constructor(div) {
         this.div = document.getElementById(div)
         this.canvas = undefined
@@ -51,12 +51,13 @@ class QmlOnline {
         center.appendChild(this.img)
 
         const strong = document.createElement("strong")
-        strong.body = "Qt for WebAssembly: qmlonline"
+        strong.body = "Qaterial for WebAssembly"
         center.appendChild(strong)
 
         this.status = document.createElement("div")
         this.status.id = "qt-status"
         center.appendChild(this.status)
+        this.status.style.color = '#ffffff'
 
         const noScript = document.createElement("noscript")
         noScript.body = "JavaScript is disabled. Please enable JavaScript to use this application."
@@ -76,7 +77,7 @@ class QmlOnline {
         this.canvas.style = "height: 100%; width: 100%;"
         this.div.appendChild(this.canvas)
 
-        this.loadKonqi()
+        this.loadLoadingGif()
         this.loadWebASM()
     }
 
@@ -84,26 +85,36 @@ class QmlOnline {
         this.config = userConfig
     }
 
-    loadKonqi() {
+    loadLoadingGif() {
         const images = [
-            "https://community.kde.org/images.community/thumb/4/40/Mascot_konqi.png/360px-Mascot_konqi.png",
-            "https://community.kde.org/images.community/thumb/c/ce/Mascot_konqi-dev-kde.png/424px-Mascot_konqi-dev-kde.png",
-            "https://community.kde.org/images.community/thumb/f/fb/Mascot_konqi-app-dev-katie.png/424px-Mascot_konqi-app-dev-katie.png",
-            "https://community.kde.org/images.community/thumb/1/11/Mascot_konqi-dev-qt.png/424px-Mascot_konqi-dev-qt.png",
-            "https://community.kde.org/images.community/thumb/5/50/Mascot_konqi-base-framework.png/526px-Mascot_konqi-base-framework.png",
-            "https://community.kde.org/images.community/thumb/a/af/Mascot_konqi-base-plasma.png/520px-Mascot_konqi-base-plasma.png",
-            "https://community.kde.org/images.community/thumb/7/79/Mascot_konqi-app-dev.png/651px-Mascot_konqi-app-dev.png",
-            "https://community.kde.org/images.community/thumb/f/f4/Mascot_konqi-support-document.png/571px-Mascot_konqi-support-document.png",
-            "https://community.kde.org/images.community/thumb/9/99/Mascot_konqi-app-hardware.png/424px-Mascot_konqi-app-hardware.png",
+            "https://i.pinimg.com/originals/9d/37/a8/9d37a8ab76ebc8086da37442fc815b7a.gif",
+            "https://i.pinimg.com/originals/96/35/60/9635606222c8cdaf02ec293daa4d9129.gif",
+            "https://i.pinimg.com/originals/64/fd/de/64fdde523102101c23751befbdae5488.gif",
+            "https://i.pinimg.com/originals/f8/e9/6d/f8e96d0d3cec7fca3dd2c912bafef9a3.gif",
+            "https://i.pinimg.com/originals/6b/fb/5b/6bfb5bb1885f3174dd650f07233befde.gif",
+            "https://i.pinimg.com/originals/85/e6/6c/85e66cceac6860286abb1ad3535cac1c.gif",
+            "https://i.pinimg.com/originals/7d/fd/95/7dfd95dd9ad07e7af1eaff34a890b322.gif"
         ];
-        this.img.src = images[Math.floor(Math.random() * images.length)];
+        const colors = [
+            "#262626",
+            "#352B3E",
+            "#333137",
+            "#000000",
+            "#686E7F",
+            "#262626",
+            "#161616"
+        ];
+        const imgId = Math.floor(Math.random() * images.length)
+        this.img.src = images[imgId];
+        let qmldiv = document.getElementById("qaterialonline");
+        qmldiv.style.backgroundColor = colors[imgId]
     }
 
     loadWebASM() {
         const self = this
         var qtLoader
         qtLoader = QtLoader({
-            path: "https://qmlonline.kde.org/",
+            path: "https://olivierldff.github.io/QaterialOnline/",
             canvasElements: [self.canvas],
             showLoader: function (loaderStatus) {
                 self.figure.style.display = 'block';
@@ -133,7 +144,7 @@ class QmlOnline {
                 };
             },
         });
-        qtLoader.loadEmscriptenModule("qmlonline");
+        qtLoader.loadEmscriptenModule("QaterialOnline");
         this.qtLoader = qtLoader
 
         // TODO: Find a better way to set the initial code and wait for the webassembly to start

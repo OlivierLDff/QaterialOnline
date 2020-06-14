@@ -1,19 +1,27 @@
-#include <QApplication>
-#include <QQmlApplicationEngine>
-
 #include "util.h"
 #include "version.h"
 
-#include "3rdparty/kirigami/src/kirigamiplugin.h"
+#include <Qaterial/Qaterial.hpp>
+
+#include <QGuiApplication>
+#include <QStyleHints>
+#include <QQmlApplicationEngine>
 
 int main(int argc, char *argv[])
 {
-    qmlRegisterSingletonType<Util>("Util", 1, 0, "Util", Util::qmlSingletonRegister);
-
-    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
-    KirigamiPlugin::getInstance().registerTypes();
+    QQmlApplicationEngine engine;
 
-    QQmlApplicationEngine appEngine(QUrl("qrc:/main.qml"));
+    // useHoverEffects is disabled for wasm
+    const auto styleHints = QGuiApplication::styleHints();
+    styleHints->setUseHoverEffects(true);
+
+    engine.addImportPath("qrc:///");
+    qaterial::loadQmlResources();
+    qaterial::registerQmlTypes();
+
+    qmlRegisterSingletonType<Util>("Util", 1, 0, "Util", Util::qmlSingletonRegister);
+    engine.load(QUrl("qrc:/main.qml"));
+
     return app.exec();
 }
