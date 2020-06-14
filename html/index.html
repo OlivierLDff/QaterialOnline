@@ -2,12 +2,13 @@
 <html lang="en-us">
 
 <head>
+    <link rel="icon" type="image/png" href="icon.png" />
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
-    <title>qmlonline</title>
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <title>QaterialOnline</title>
 </head>
 
 <body onload="init()">
@@ -15,7 +16,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/metro/4.3.7/js/metro.min.js"></script>
 
     <div class="header-row">
-        <span class="header-brand-1">QML</span>
+        <span class="header-brand-1">QATERIAL</span>
         <span class="header-brand-2">Online</span>
 
         <div class="dropdown">
@@ -28,11 +29,11 @@
         </div>
 
         <div class="build-info" style="cursor:pointer">
-            <a id="build-info" href="https://invent.kde.org/webapps/qmlonline" style="color:white"></a>
+            <a id="build-info" href="https://github.com/OlivierLDff/QaterialOnline" style="color:white"></a>
         </div>
 
-        <div class="github-button" onclick="window.open('https://invent.kde.org/webapps/qmlonline');">
-            <span class="iconify" data-icon="octicon-repo" data-inline="false"></span>
+        <div class="github-button" onclick="window.open('https://github.com/OlivierLDff/Qaterial');">
+            <span class="iconify" data-icon="logos:github-octocat" data-inline="false"></span>
         </div>
     </div>
     <div id= "main-div" data-role="splitter" class="h-100" data-on-resize-split="resizeSplitY">
@@ -55,7 +56,7 @@
             <figure style="overflow:visible;" id="qtspinner">
                 <center style="margin-top:1.5em;">
                     <img id="webasm_load_image"; style="max-height: 400px; object-fit: contain;"> </img>
-                    <strong>Qt for WebAssembly: qmlonline</strong>
+                    <strong>Qaterial for WebAssembly</strong>
                     <div id="qtstatus"></div>
                     <noscript>JavaScript is disabled. Please enable JavaScript to use this application.</noscript>
                 </center>
@@ -105,7 +106,7 @@
         function loadFile(filePath) {
             //TODO: use https://xhr.spec.whatwg.org/
             let request = new XMLHttpRequest();
-            request.open("GET", "qml/examples/" + filePath, false);
+            request.open("GET", filePath, false);
             request.send();
             return request.status === 200 ? request.responseText : "";
         }
@@ -113,7 +114,7 @@
 
     <script type="text/javascript" src="qtloader.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/ace.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/theme-dracula.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/theme-tomorrow_night.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/mode-qml.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.js"></script>
     <script type='text/javascript'>
@@ -135,11 +136,11 @@
 
         function populateBuildInfo(version) {
             let buildInfo = document.getElementById("build-info")
-            buildInfo.href = `${version.url.replace('.git', '')}/-/tree/${version.hash}`
-            buildInfo.innerHTML = `Build: ${version.date} - ${version.hash}`
+            buildInfo.href = `https://github.com/OlivierLDff/QaterialOnline/actions/runs/${version.runId}`
+            buildInfo.innerHTML = `${version.date} - ${version.hash}:${version.runNumber}`
         }
 
-        editor.setTheme("ace/theme/dracula");
+        editor.setTheme("ace/theme/tomorrow_night");
         editor.session.setMode("ace/mode/qml");
         editor.setOption("showInvisibles", true)
         editor.setOption("useWorker", false); // Avoid problems with syntax check
@@ -229,7 +230,7 @@
                     };
                 },
             });
-            qtLoader.loadEmscriptenModule("qmlonline");
+            qtLoader.loadEmscriptenModule("QaterialOnline");
 
             // TODO: Find a better way to set the initial code and wait for the webassembly to start
             var intervalID = setInterval(
@@ -321,19 +322,29 @@
         }
 
         (function() {
-            var images = [
-                "https://community.kde.org/images.community/thumb/4/40/Mascot_konqi.png/360px-Mascot_konqi.png",
-                "https://community.kde.org/images.community/thumb/c/ce/Mascot_konqi-dev-kde.png/424px-Mascot_konqi-dev-kde.png",
-                "https://community.kde.org/images.community/thumb/f/fb/Mascot_konqi-app-dev-katie.png/424px-Mascot_konqi-app-dev-katie.png",
-                "https://community.kde.org/images.community/thumb/1/11/Mascot_konqi-dev-qt.png/424px-Mascot_konqi-dev-qt.png",
-                "https://community.kde.org/images.community/thumb/5/50/Mascot_konqi-base-framework.png/526px-Mascot_konqi-base-framework.png",
-                "https://community.kde.org/images.community/thumb/a/af/Mascot_konqi-base-plasma.png/520px-Mascot_konqi-base-plasma.png",
-                "https://community.kde.org/images.community/thumb/7/79/Mascot_konqi-app-dev.png/651px-Mascot_konqi-app-dev.png",
-                "https://community.kde.org/images.community/thumb/f/f4/Mascot_konqi-support-document.png/571px-Mascot_konqi-support-document.png",
-                "https://community.kde.org/images.community/thumb/9/99/Mascot_konqi-app-hardware.png/424px-Mascot_konqi-app-hardware.png",
+            const images = [
+                "https://i.pinimg.com/originals/9d/37/a8/9d37a8ab76ebc8086da37442fc815b7a.gif",
+                "https://i.pinimg.com/originals/96/35/60/9635606222c8cdaf02ec293daa4d9129.gif",
+                "https://i.pinimg.com/originals/64/fd/de/64fdde523102101c23751befbdae5488.gif",
+                "https://i.pinimg.com/originals/f8/e9/6d/f8e96d0d3cec7fca3dd2c912bafef9a3.gif",
+                "https://i.pinimg.com/originals/6b/fb/5b/6bfb5bb1885f3174dd650f07233befde.gif",
+                "https://i.pinimg.com/originals/85/e6/6c/85e66cceac6860286abb1ad3535cac1c.gif",
+                "https://i.pinimg.com/originals/7d/fd/95/7dfd95dd9ad07e7af1eaff34a890b322.gif"
             ];
-            var img = document.getElementById("webasm_load_image");
-            img.src = images[Math.floor(Math.random() * images.length)];
+            const colors = [
+                "#262626",
+                "#352B3E",
+                "#333137",
+                "#000000",
+                "#686E7F",
+                "#262626",
+                "#161616"
+            ];
+            const imgId = Math.floor(Math.random() * images.length)
+            let img = document.getElementById("webasm_load_image");
+            img.src = images[imgId];
+            let qmldiv = document.getElementById("qml-div");
+            qmldiv.style.backgroundColor = colors[imgId]
         })();
     </script>
 </body>
