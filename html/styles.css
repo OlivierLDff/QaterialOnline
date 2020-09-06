@@ -115,11 +115,14 @@ canvas {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
-    min-width: 50em;
     padding-left: 1em;
     z-index: 1;
     border-radius: 0.5em;
     flex-flow: row wrap;
+    height: calc(100vh - 100px);
+    width: calc(100vw - 200px);
+    overflow-x: auto;
+    overflow-y: auto;
 }
 
 /* Links inside the dropdown */
