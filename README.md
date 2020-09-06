@@ -30,3 +30,37 @@ python -m SimpleHTTPServer
 ```
 
 The page should be accessible from `localhost:8000` in any web brower.
+
+ ## Integrate within html pages
+ 
+ ```html
+<html>
+<body width="200" height="200" >
+    <script type="text/javascript" src="https://olivierldff.github.io/QaterialOnline/qtloader.js"></script>
+    <script type="text/javascript" src="https://olivierldff.github.io/QaterialOnline/qml.js"></script>
+
+    <div id="qaterialonline"></div>
+
+    <script type='text/qml'>
+        import Qaterial 1.0
+        RaisedButton { text: "Raised Button" }
+    </script>
+
+    <script type='text/javascript'>
+        const qml = new QaterialOnline("qaterialonline")
+        qml.registerCall({
+            qmlMessage: function(msg) {
+                console.log(`qml message: ${msg}`)
+            },
+            qmlError: function(data) {
+                console.log(`qml error: ${JSON.stringify(data)}`)
+            },
+            posInit: function() {
+                qml.setCode(Array.prototype.slice.apply(document.getElementsByTagName('script')).find(e => e.type == 'text/qml').text)
+            },
+        })
+        qml.init()
+    </script>
+</body>
+</html>
+ ```
