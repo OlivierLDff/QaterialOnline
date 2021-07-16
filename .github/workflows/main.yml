@@ -19,12 +19,26 @@ jobs:
           - docker-image: 'reivilo1234/qt-webassembly-cmake:qt5.15-em1.39.8'
 
     steps:
-    - uses: actions/checkout@v2
-    - name: "Configure"
-      run: mkdir -p build && docker run --rm -v $(pwd):/src/ -u $(id -u):$(id -g) ${{ matrix.docker-image }} cmake -B ./build/ -S . -DQATERIALONLINE_BUILD_RUN_NUMBER=${{ github.run_number }} -DQATERIALONLINE_BUILD_RUN_ID=${{ github.run_id }} ..
-    - name: "Build"
-      run: docker run --rm -v $(pwd):/src/ -u $(id -u):$(id -g) ${{ matrix.docker-image }} make -C build -j
-    - name: "Deploy"
+    -
+      uses: actions/checkout@v2
+    -
+      name: "🔧 Configure"
+      run: |
+        mkdir -p build                                                                  && \
+        docker run --rm -v $(pwd):/src/ -u $(id -u):$(id -g) ${{ matrix.docker-image }}    \
+          cmake                                                                            \
+          -DQATERIALONLINE_BUILD_RUN_NUMBER=${{ github.run_number }}                       \
+          -DQATERIALONLINE_BUILD_RUN_ID=${{ github.run_id }}                               \
+          -DQATERIAL_ENABLE_PCH=OFF                                                        \
+          -DQATERIAL_ENABLE_UNITY_BUILD=OFF                                                \
+          -B ./build/ -S .
+    -
+      name: "🔨 Build"
+      run: |
+        docker run --rm -v $(pwd):/src/ -u $(id -u):$(id -g) ${{ matrix.docker-image }} \
+          make -C build -j
+    -
+      name: "🚀 Deploy"
       run: |
         cd build/deploy
         git init
