@@ -9,6 +9,9 @@ set(QATERIAL_TAG "master" CACHE STRING "Qaterial git tag")
 set(QTSTATICCMAKE_REPOSITORY "https://github.com/OlivierLDff/QtStaticCMake.git" CACHE STRING "QtStaticCMake repository, can be a local URL")
 set(QTSTATICCMAKE_TAG "v1.1.0" CACHE STRING "QtStaticCMake git tag")
 
+set(QTWASMCMAKE_REPOSITORY "https://github.com/OlivierLDff/QtWasmCMake.git" CACHE STRING "QtWasmCMake repository, can be a local URL")
+set(QTWASMCMAKE_TAG "v1.1.0" CACHE STRING "QtWasmCMake git tag")
+
 # Find all required package, if some is missing it will result in error in target_link_libraries
 find_package(Qt5 COMPONENTS Core            REQUIRED)
 find_package(Qt5 COMPONENTS Gui             REQUIRED)
