@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 3.14)
 
 project(QaterialOnline LANGUAGES CXX VERSION 1.0.0)
 
+set(QATERIAL_REPOSITORY "https://github.com/OlivierLDff/Qaterial.git" CACHE STRING "Qaterial repository url")
+set(QATERIAL_TAG "master" CACHE STRING "Qaterial git tag")
+
 set(QTSTATICCMAKE_REPOSITORY "https://github.com/OlivierLDff/QtStaticCMake.git" CACHE STRING "QtStaticCMake repository, can be a local URL")
 set(QTSTATICCMAKE_TAG "v1.1.0" CACHE STRING "QtStaticCMake git tag")
 
