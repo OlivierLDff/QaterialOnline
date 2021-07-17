@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 3.14)
 
 project(QaterialOnline LANGUAGES CXX VERSION 1.0.0)
 
+set(QTSTATICCMAKE_REPOSITORY "https://github.com/OlivierLDff/QtStaticCMake.git" CACHE STRING "QtStaticCMake repository, can be a local URL")
+set(QTSTATICCMAKE_TAG "v1.1.0" CACHE STRING "QtStaticCMake git tag")
+
 # Find all required package, if some is missing it will result in error in target_link_libraries
 find_package(Qt5 COMPONENTS Core            REQUIRED)
 find_package(Qt5 COMPONENTS Gui             REQUIRED)
